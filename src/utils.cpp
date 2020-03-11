@@ -189,6 +189,8 @@ void set_thread_name(const String& thread_name) {
   } __except (EXCEPTION_EXECUTE_HANDLER) {
   }
 #pragma warning(pop)
+#else
+  pthread_setname_np(pthread_self(), thread_name.c_str());
 #endif
 }
 
