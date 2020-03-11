@@ -23,6 +23,10 @@
 
 using namespace datastax;
 using namespace datastax::internal::core;
+#ifdef __linux__
+#include <sys/syscall.h> // gettid
+#include <unistd.h>
+#endif
 
 #if defined(HAVE_SIGTIMEDWAIT) && !defined(HAVE_NOSIGPIPE)
 static int block_sigpipe() {
@@ -124,12 +128,20 @@ bool EventLoop::is_running_on() const { return uv_thread_self() == thread_; }
 
 void EventLoop::on_run() {
   if (name_.empty()) name_ = "Event Loop";
-#if defined(_MSC_VER)
+  unsigned long tid = 0;
   char temp[64];
-  sprintf(temp, "%s - %lu", name_.c_str(),
-          static_cast<unsigned long>(GetThreadId(uv_thread_self())));
-  name_ = temp;
+#if defined(_MSC_VER)
+  tid = static_cast<unsigned long>(GetThreadId(uv_thread_self()));
+  sprintf(temp, "%s - %lu", name_.c_str(), tid);
+#else
+#if defined(SYS_gettid)
+  tid = static_cast<unsigned long>(syscall(SYS_gettid));
+#else
+  tid = uv_thread_self();
 #endif
+  snprintf(temp, 16, "cass-%lu", tid);
+#endif
+  name_ = temp;
   set_thread_name(name_);
 }
 
