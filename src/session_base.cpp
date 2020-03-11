@@ -98,7 +98,7 @@ Future::Ptr SessionBase::connect(const Config& config,
     random_.reset();
   }
 
-  metrics_.reset(new Metrics(config.thread_count_io() + 1));
+  // metrics_.reset(new Metrics(config.thread_count_io() + 1));
 
   cluster_.reset();
   ClusterConnector::Ptr connector(
