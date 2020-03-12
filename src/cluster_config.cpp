@@ -577,6 +577,10 @@ void cass_cluster_set_monitor_reporting_interval(CassCluster* cluster, unsigned 
   cluster->config().set_monitor_reporting_interval_secs(interval_secs);
 }
 
+void cass_cluster_set_session_metrics(CassCluster* cluster, cass_bool_t enabled) {
+  cluster->config().set_session_metrics(enabled == cass_true);
+}
+
 void cass_cluster_free(CassCluster* cluster) { delete cluster->from(); }
 
 } // extern "C"

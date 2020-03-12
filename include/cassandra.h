@@ -2920,6 +2920,19 @@ CASS_EXPORT void
 cass_cluster_set_monitor_reporting_interval(CassCluster* cluster,
                                             unsigned interval_secs);
 
+/**
+ * Enable/disable session metrics.
+ *
+ * <b>Default:</b> False.
+ *
+ * @public @memberof CassCluster
+ *
+ * @param[in] cluster
+ * @param[in] interval_secs Use 0 to disable monitor reporting event messages.
+ */
+CASS_EXPORT void
+cass_cluster_set_session_metrics(CassCluster* cluster, cass_bool_t enabled);
+
 /***********************************************************************************
  *
  * Session
