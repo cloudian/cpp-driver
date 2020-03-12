@@ -70,7 +70,8 @@ public:
       , no_compact_(CASS_DEFAULT_NO_COMPACT)
       , is_client_id_set_(false)
       , host_listener_(new DefaultHostListener())
-      , monitor_reporting_interval_secs_(CASS_DEFAULT_CLIENT_MONITOR_EVENTS_INTERVAL_SECS) {
+      , monitor_reporting_interval_secs_(CASS_DEFAULT_CLIENT_MONITOR_EVENTS_INTERVAL_SECS)
+      , session_metrics_(false) {
     profiles_.set_empty_key(String());
 
     // Assign the defaults to the cluster profile
@@ -426,6 +427,10 @@ public:
     monitor_reporting_interval_secs_ = interval_secs;
   };
 
+  bool session_metrics() const { return session_metrics_; }
+
+  void set_session_metrics(bool enabled) { session_metrics_ = enabled; }
+
 private:
   void init_profiles();
 
@@ -473,6 +478,7 @@ private:
   CassUuid client_id_;
   DefaultHostListener::Ptr host_listener_;
   unsigned monitor_reporting_interval_secs_;
+  bool session_metrics_;
 };
 
 } // namespace cass
