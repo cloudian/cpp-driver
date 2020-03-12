@@ -2506,6 +2506,19 @@ cass_cluster_set_use_schema(CassCluster* cluster,
                             cass_bool_t enabled);
 
 /**
+ * Enable/disable session metrics.
+ *
+ * <b>Default:</b> False.
+ *
+ * @public @memberof CassCluster
+ *
+ * @param[in] cluster
+ * @param[in] interval_secs Use 0 to disable monitor reporting event messages.
+ */
+CASS_EXPORT void
+cass_cluster_set_session_metrics(CassCluster* cluster, cass_bool_t enabled);
+
+/**
  * Enable/Disable retrieving hostnames for IP addresses using reverse IP lookup.
  *
  * This is useful for authentication (Kerberos) or encryption (SSL) services

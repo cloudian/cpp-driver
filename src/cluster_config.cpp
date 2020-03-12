@@ -433,6 +433,10 @@ void cass_cluster_set_use_schema(CassCluster* cluster,
   cluster->config().set_use_schema(enabled == cass_true);
 }
 
+void cass_cluster_set_session_metrics(CassCluster* cluster, cass_bool_t enabled) {
+  cluster->config().set_session_metrics(enabled == cass_true);
+}
+
 CassError cass_cluster_set_use_hostname_resolution(CassCluster* cluster,
                                                    cass_bool_t enabled) {
   cluster->config().set_use_hostname_resolution(enabled == cass_true);
